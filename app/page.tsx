@@ -2,23 +2,32 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button"
 import GymImage from "../app/assets/GYM_Landing_Image.jpg";
+import Footer from "@/components/ui/footer";
 import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen flex flex-col">
-      <Image
-        src={GymImage}
-        alt="Gym"
-        fill
-        className="object-cover z-0"
-      />
+    <main className="relative min-h-screen flex flex-col bg-black">
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2 }}
+        className="absolute inset-0 z-0"
+      >
+        <Image
+          src={GymImage}
+          alt="Gym"
+          fill
+          className="object-cover"
+        />
+      </motion.div>
 
       <div className="flex flex-col items-start justify-start z-10 pt-8 pl-8">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 1 }}
         >
           <h1 className="text-4xl font-bold text-white">Pump-<span className="text-red-600">It</span></h1>
         </motion.div>
@@ -28,7 +37,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 1 }}
         >
           <h2 className="text-2xl font-bold text-red-600">Power your training with AI</h2>
           <h1 className="text-6xl font-bold text-white mt-6">Build the best version of <span className="font-light">yourself!</span></h1>
@@ -38,6 +47,14 @@ export default function Home() {
         </motion.div>
       </div>
 
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className=" flex flex-row items-end justify-center z-10 h-[50px]"
+      >
+        <Footer />
+      </motion.div>
 
     </main>
   );
