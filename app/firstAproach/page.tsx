@@ -2,6 +2,10 @@
 import React, { useRef, useEffect } from 'react';
 import { Pose } from '@mediapipe/pose';
 import { Camera } from '@mediapipe/camera_utils';
+import { motion } from "framer-motion";
+import Link from 'next/link';
+import { Button } from "@/components/ui/button";
+
 
 const PoseTrackingComponent: React.FC = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -66,18 +70,45 @@ const PoseTrackingComponent: React.FC = () => {
 
     return (
         <div className="relative w-screen h-screen">
-            <video
-                ref={videoRef}
-                className="absolute top-0 left-0 w-full h-full object-cover"
-                autoPlay
-                playsInline
-            />
-            <canvas
-                ref={canvasRef}
-                className="absolute top-0 left-0 w-full h-full"
-                width={1280}  // Ajusta el tamaño del canvas
-                height={720}   // Ajusta el tamaño del canvas
-            />
+            <div className="absolute w-full h-full z-0">
+                <video
+                    ref={videoRef}
+                    className="absolute top-0 left-0 w-full h-full object-cover"
+                    autoPlay
+                    playsInline
+                />
+                <canvas
+                    ref={canvasRef}
+                    className="absolute top-0 left-0 w-full h-full"
+                    width={1280}
+                    height={720}
+                />
+            </div>
+
+            <div className="flex flex-row justify-between items-center z-10 pt-8 px-8 w-full relative">
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1 }}
+                >
+                    <h1 className="text-4xl font-bold text-white">Pump-<span className="text-red-600">It</span></h1>
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1 }}
+                >
+                    <Link href="/">
+                        <Button
+                            size="lg"
+                            className="text-md font-bold border-2 border-red-600 text-red-600 rounded-lg hover:bg-red-600 hover:text-white focus:ring-2 focus:ring-red-500"
+                        >
+                            End
+                        </Button>
+                    </Link>
+                </motion.div>
+            </div>
         </div>
     );
 };

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 
 const Footer = () => {
-    const [activeLink, setActiveLink] = useState<string>('About');
+    const [activeLink, setActiveLink] = useState<string>('Home');
 
 
     return (
