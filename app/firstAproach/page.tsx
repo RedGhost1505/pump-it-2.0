@@ -1,42 +1,40 @@
+// Archivo: PoseTrackingComponent.tsx
 "use client";
 import React, { useRef, useEffect, useState } from 'react';
-import { Pose } from '@mediapipe/pose';
+import { Pose as MediaPipePose } from '@mediapipe/pose';
 import { Camera } from '@mediapipe/camera_utils';
 import { motion } from "framer-motion";
 import Link from 'next/link';
-import { Button } from "@/components/ui/button";
-import Ejercicio from './Ejercicio';
+import { Button } from '@/components/ui/button';
+import { AlineacionPiesHombros, AperturaCodosCurlBarra, VerificadorRestricciones } from './Restricciones';
+import { Ejercicio, Landmarks } from './Ejercicio';
+
+const restricciones = [new AlineacionPiesHombros(), new AperturaCodosCurlBarra()];
+const verificador = new VerificadorRestricciones(restricciones);
+
+type AnguloObjetivo = {
+    [key: string]: [number, number];
+};
+
+
+const angulosObjetivo : AnguloObjetivo = {
+    "12,14,16": [30.0, 100.0], // Ángulo para el brazo izquierdo 
+    "11,13,15": [30.0, 100.0], // Ángulo para el brazo derecho 
+};
+const ejercicio = new Ejercicio("Elevaciones Laterales", angulosObjetivo, 5);
 
 const PoseTrackingComponent: React.FC = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [contador, setContador] = useState(0);
     const [stages, setStages] = useState<{ [key: string]: string | null }>({});
-    const [angulosAdicionalesStatus, setAngulosAdicionalesStatus] = useState<{ [key: string]: string }>({});
-
-    // Definir el tipo AnguloObjetivo explícitamente en este archivo 
-    type AnguloObjetivo = {
-        [key: string]: [number, number];
-    };
-
-    type AngulosAdicionales = {
-        [key: string]: number;
-    };
-
-    type Landmarks = Array<{ x: number; y: number }>;
-
-    const angulosObjetivo: AnguloObjetivo = {
-        "12,14,16": [30.0, 100.0], // Ángulo para el brazo izquierdo 
-        "11,13,15": [30.0, 100.0], // Ángulo para el brazo derecho 
-    };
-  
-    const ejercicio = new Ejercicio("Elevaciones Laterales", angulosObjetivo, 5);
+    const [errores, setErrores] = useState<string[]>([]);
 
     useEffect(() => {
         if (!videoRef.current || !canvasRef.current) return;
 
         // Configuración de MediaPipe Pose 
-        const pose = new Pose({
+        const pose = new MediaPipePose({
             locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
         });
 
@@ -50,7 +48,17 @@ const PoseTrackingComponent: React.FC = () => {
 
         pose.onResults(onResults);
 
-        // Callback para procesar los resultados de MediaPipe 
+        // Configuración de la cámara 
+        const camera = new Camera(videoRef.current!, {
+            onFrame: async () => {
+                await pose.send({ image: videoRef.current! });
+            },
+            width: 1280,
+            height: 720,
+        });
+        camera.start();
+
+        // Callback para procesar los resultados
         function onResults(results: any) {
             const canvasCtx = canvasRef.current!.getContext('2d');
             if (canvasCtx) {
@@ -59,41 +67,30 @@ const PoseTrackingComponent: React.FC = () => {
                 if (results.poseLandmarks) {
                     drawPose(results.poseLandmarks, canvasCtx);
 
-                    // Verificar el ejercicio con los landmarks 
-                    const landmarks: Landmarks = results.poseLandmarks.map((landmark: any) => ({ x: landmark.x, y: landmark.y }));
-                    const ejercicioCompletado = ejercicio.verificarEjercicio(landmarks);
+                    // Verificar las restricciones
+                    const landmarks = results.poseLandmarks.map((landmark: { x: number; y: number; z: number }) => ({ x: landmark.x, y: landmark.y, z: landmark.z }));
+                    const poseData: { [key: string]: { x: number; y: number; z: number } } = Object.fromEntries(
+                        landmarks.map((landmark, index) => [index.toString(), landmark])
+                    );
+                    const resultadoRestricciones = verificador.verificarPostura(poseData);
 
+                    // Actualizar errores
+                    setErrores(resultadoRestricciones.puntosMal);
+
+                    // Verificar el ejercicio
+                    const ejercicioCompletado = ejercicio.verificarEjercicio(landmarks as Landmarks);
                     if (ejercicioCompletado) {
-                        console.log("Ejercicio completado correctamente");
                         setContador(ejercicio.contador);
                     }
 
-                    // Actualizar el estado de las etapas 
+                    // Actualizar el estado de las etapas
                     setStages({ ...ejercicio.stage });
-
-                    // Verificar y actualizar el estado de los ángulos adicionales 
-                    const angulosAdicionalesStatus = Object.entries(ejercicio.angulosAdicionales).reduce(
-                        (acc, [key, anguloObjetivo]) => {
-                            const puntosParsed: [number, number, number] = key
-                                .split(",")
-                                .map(Number) as [number, number, number];
-                            const isCorrect = ejercicio.verificarAnguloAdicional(
-                                puntosParsed,
-                                anguloObjetivo,
-                                landmarks
-                            );
-                            acc[key] = isCorrect ? "OK" : "NO";
-                            return acc;
-                        },
-                        {} as { [key: string]: string }
-                    );
-                    setAngulosAdicionalesStatus(angulosAdicionalesStatus);
                 }
             }
         }
 
         // Dibuja los landmarks de la pose en el canvas 
-        function drawPose(landmarks: any[], canvasCtx: CanvasRenderingContext2D) {
+        function drawPose(landmarks: { x: number; y: number; z: number }[], canvasCtx: CanvasRenderingContext2D) {
             for (const landmark of landmarks) {
                 const { x, y } = landmark;
                 canvasCtx.beginPath();
@@ -102,16 +99,6 @@ const PoseTrackingComponent: React.FC = () => {
                 canvasCtx.fill();
             }
         }
-
-        // Configuración de la cámara 
-        const camera = new Camera(videoRef.current!, {
-            onFrame: async () => {
-                await pose.send({ image: videoRef.current! });
-            },
-            width: 1280, // Aumenta el ancho 
-            height: 720, // Aumenta la altura 
-        });
-        camera.start();
 
         return () => {
             camera.stop();
@@ -150,10 +137,10 @@ const PoseTrackingComponent: React.FC = () => {
                             <li key={key}>{key}: {value}</li>
                         ))}
                     </ul>
-                    <p className="text-white mt-4">Estado de los ángulos adicionales:</p>
+                    <p className="text-white mt-4">Errores detectados:</p>
                     <ul className="text-white">
-                        {Object.entries(angulosAdicionalesStatus).map(([key, value]) => (
-                            <li key={key}>{key}: {value}</li>
+                        {errores.map((punto, index) => (
+                            <li key={index}>Punto {punto}</li>
                         ))}
                     </ul>
                 </motion.div>

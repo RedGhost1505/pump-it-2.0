@@ -1,3 +1,4 @@
+// Archivo: Restricciones.ts
 export interface Restriccion {
     verificar(puntos: Pose): Resultado;
 }
@@ -32,7 +33,7 @@ export abstract class RestriccionPostura implements Restriccion {
 export class AlineacionPiesHombros extends RestriccionPostura {
     verificar(puntos: Pose): Resultado {
         const puntosMal: string[] = [];
-        const distanciaPies = this.medirDistancia(puntos['28'], puntos['32']); // right ankle to right foot index
+        const distanciaPies = this.medirDistancia(puntos['28'], puntos['27']); // right ankle to right foot index
         const distanciaHombros = this.medirDistancia(puntos['11'], puntos['12']); // left shoulder to right shoulder
 
         if (Math.abs(distanciaPies - distanciaHombros) > 0.1) {
@@ -47,14 +48,14 @@ export class AlineacionPiesHombros extends RestriccionPostura {
 export class AperturaCodosCurlBarra extends RestriccionPostura {
     verificar(puntos: Pose): Resultado {
         const puntosMal: string[] = [];
-        const anguloCodoIzquierdo = this.calcularAngulo(puntos['11'], puntos['13'], puntos['15']); // left shoulder, left elbow, left wrist
-        const anguloCodoDerecho = this.calcularAngulo(puntos['12'], puntos['14'], puntos['16']); // right shoulder, right elbow, right wrist
+        const anguloCodoIzquierdo = this.calcularAngulo(puntos['13'], puntos['11'], puntos['23']); // left shoulder, left elbow, left wrist
+        const anguloCodoDerecho = this.calcularAngulo(puntos['14'], puntos['12'], puntos['24']); // right shoulder, right elbow, right wrist
 
         // Para un curl de barra, el ángulo del codo debería estar entre 30 y 150 grados
-        if (anguloCodoIzquierdo < 30 || anguloCodoIzquierdo > 150) {
+        if (anguloCodoIzquierdo < 10 || anguloCodoIzquierdo > 30) {
             puntosMal.push('13'); // left elbow
         }
-        if (anguloCodoDerecho < 30 || anguloCodoDerecho > 150) {
+        if (anguloCodoDerecho < 10 || anguloCodoDerecho > 30) {
             puntosMal.push('14'); // right elbow
         }
 
