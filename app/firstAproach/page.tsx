@@ -5,6 +5,7 @@ import { Camera } from '@mediapipe/camera_utils';
 import { motion } from "framer-motion";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
+import Interface from '@/components/Interface';
 
 
 const PoseTrackingComponent: React.FC = () => {
@@ -102,13 +103,16 @@ const PoseTrackingComponent: React.FC = () => {
                     <Link href="/">
                         <Button
                             size="lg"
-                            className="text-md font-bold border-2 border-red-600 text-red-600 rounded-lg hover:bg-red-600 hover:text-white focus:ring-2 focus:ring-red-500"
+                            className="text-md font-bold border-2 bg-transparent border-red-600 text-red-600 rounded-lg hover:bg-red-600 hover:text-white focus:ring-2 focus:ring-red-500"
                         >
                             End
                         </Button>
                     </Link>
                 </motion.div>
             </div>
+
+            <Interface />
+
         </div>
     );
 };
