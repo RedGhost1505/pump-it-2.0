@@ -6,10 +6,10 @@ import { Camera } from '@mediapipe/camera_utils';
 import { motion } from "framer-motion";
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { AlineacionPiesHombros, AperturaCodosCurlBarra, VerificadorRestricciones } from './Restricciones';
-import { Ejercicio, Landmarks } from './Ejercicio';
+import { AlineacionEspalda , VerificadorRestricciones, AlineacionPiesHombros, AlineacionManosHombros, AlineacionCodosHombrosX } from './Restricciones';
+import { Movimiento, Landmarks } from './Movimiento';
 
-const restricciones = [new AlineacionPiesHombros(), new AperturaCodosCurlBarra()];
+const restricciones = [new AlineacionPiesHombros(), new AlineacionCodosHombrosX];
 const verificador = new VerificadorRestricciones(restricciones);
 
 type AnguloObjetivo = {
@@ -21,7 +21,7 @@ const angulosObjetivo : AnguloObjetivo = {
     "12,14,16": [30.0, 100.0], // Ángulo para el brazo izquierdo 
     "11,13,15": [30.0, 100.0], // Ángulo para el brazo derecho 
 };
-const ejercicio = new Ejercicio("Elevaciones Laterales", angulosObjetivo, 5);
+const ejercicio = new Movimiento("Elevaciones Laterales", angulosObjetivo, 5);
 
 const PoseTrackingComponent: React.FC = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -77,10 +77,12 @@ const PoseTrackingComponent: React.FC = () => {
                     // Actualizar errores
                     setErrores(resultadoRestricciones.puntosMal);
 
-                    // Verificar el ejercicio
-                    const ejercicioCompletado = ejercicio.verificarEjercicio(landmarks as Landmarks);
-                    if (ejercicioCompletado) {
-                        setContador(ejercicio.contador);
+                    // Verificar el ejercicio solo si no hay errores
+                    if (resultadoRestricciones.puntosMal.length === 0) {
+                        const ejercicioCompletado = ejercicio.verificarEjercicio(landmarks as Landmarks);
+                        if (ejercicioCompletado) {
+                            setContador(ejercicio.contador);
+                        }
                     }
 
                     // Actualizar el estado de las etapas
