@@ -39,7 +39,7 @@ const Home = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
         >
-          <Link href="/firstAproach">
+          <Link href="/menu">
             <Button
               size="lg"
               className="text-md font-bold bg-transparent border-2 border-red-600 text-red-600 rounded-lg hover:bg-red-600 hover:text-white focus:ring-2 focus:ring-red-500"
