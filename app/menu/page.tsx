@@ -1,60 +1,32 @@
 "use client";
-import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
+import React, { useEffect, useState, useCallback } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from "@/components/ui/carousel"
-import Autoplay from "embla-carousel-autoplay";
-import useEmblaCarousel from "embla-carousel-react";
-import {
-    Card,
-    CardContent,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Input } from "@/components/ui/input";
 import { IoMdCloudyNight } from "react-icons/io";
 import { FaCloudSun } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
+import Image from "next/image";
 import gymMenuImage from "../assets/Gym_menu_01.jpg";
-import Image from 'next/image';
+import gymLegs from "../assets/Gym_Menu_05.jpg";
+import gymShouders from "../assets/Gym_Menu_03.jpg";
+import gymPullUps from "../assets/Gym_Menu_08.jpg";
+import gymCurl from "../assets/Gym_Menu_06.jpg";
+import gymFlex from "../assets/Gym_Menu_07.jpg";
+import gymStatsImage from "../assets/Gym_Menu_04.jpg";
+import Carousel from "@/components/Carousel";
+import { TbBrandGithubFilled } from "react-icons/tb";
+import { MdOutlineQuestionMark } from "react-icons/md";
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { BiStats } from "react-icons/bi";
+import { BsThreeDots } from "react-icons/bs";
+
 
 const Menu = () => {
     const [time, setTime] = useState<Date>(new Date());
-    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
-    const [selectedIndex, setSelectedIndex] = useState(0);
-    const plugin = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
 
-    // Manejar el cambio de slide y el estado del índice seleccionado
-    useEffect(() => {
-        if (emblaApi) {
-            const onSelect = () => {
-                const selected = emblaApi.selectedScrollSnap();
-                setSelectedIndex(selected);
-            };
-
-            // Añadir el listener
-            emblaApi.on("select", onSelect);
-
-            // Cleanup cuando el componente se desmonta
-            return () => {
-                if (emblaApi) {
-                    emblaApi.off("select", onSelect); // Solo quitar si emblaApi existe
-                }
-            };
-        }
-    }, [emblaApi]);
-
-    // Manejar el clic en los botones para cambiar diapositiva
-    const handleButtonClick = (index: number) => {
-        if (emblaApi) emblaApi.scrollTo(index);
-    };
-
-    // Actualizar la hora cada segundo
+    // Update time every second
     useEffect(() => {
         const interval = setInterval(() => {
             setTime(new Date());
@@ -63,14 +35,13 @@ const Menu = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // Formatear la hora para mostrar
     const formatTime = (date: Date) => {
         const hours = date.getHours();
         const minutes = date.getMinutes();
         const isPM = hours >= 12;
-        const formattedHours = hours % 12 || 12; // Formato de 12 horas
-        const formattedMinutes = minutes.toString().padStart(2, '0');
-        const period = isPM ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12;
+        const formattedMinutes = minutes.toString().padStart(2, "0");
+        const period = isPM ? "PM" : "AM";
         return { formattedHours, formattedMinutes, period };
     };
 
@@ -78,13 +49,16 @@ const Menu = () => {
 
     return (
         <div className="flex flex-col z-0 w-full min-h-[100vh] bg-black">
+            {/* Header section */}
             <div className="flex flex-row justify-between items-center z-10 pt-4 px-8 w-full">
                 <div className="flex flex-row items-center">
                     <div>
-                        <h1 className="text-4xl font-normal text-white">{formattedHours}:{formattedMinutes}</h1>
+                        <h1 className="text-4xl font-normal text-white">
+                            {formattedHours}:{formattedMinutes}
+                        </h1>
                         <h3 className="text-4xl font-extralight text-white">{period}</h3>
                     </div>
-                    {period === 'PM' ? (
+                    {period === "PM" ? (
                         <IoMdCloudyNight className="text-4xl text-white ml-6" />
                     ) : (
                         <FaCloudSun className="text-4xl text-white ml-5" />
@@ -96,7 +70,7 @@ const Menu = () => {
                 </h1>
 
                 <div className="flex flex-row items-center">
-                    <Avatar className='mr-4'>
+                    <Avatar className="mr-4">
                         <AvatarImage src="https://github.com/shadcn.png" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
@@ -111,16 +85,15 @@ const Menu = () => {
                 </div>
             </div>
 
+            {/* Search section */}
             <div className="flex justify-center mt-10">
                 <div className="relative w-[300px]">
-                    <Input
-                        placeholder="Search..."
-                        className="pr-10 rounded-3xl"
-                    />
+                    <Input placeholder="Search..." className="pr-10 rounded-3xl" />
                     <IoMdSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
                 </div>
             </div>
 
+            {/* Main content section */}
             <div className="flex flex-row w-full mt-8 h-[550px] px-6 gap-6">
                 <div className="relative flex flex-row justify-between items-center w-full h-full py-4 rounded-lg overflow-hidden">
                     <div className="absolute inset-0">
@@ -133,48 +106,121 @@ const Menu = () => {
                         />
                     </div>
 
-                    <div className="absolute top-4 left-8 z-10 w-[400px]">
-                        <div className="text-white text-[3rem] font-semibold">
+                    <div className="absolute top-4 left-8 z-10 w-full">
+                        <div className="text-white w-[400px] text-[3rem] font-semibold">
                             Good morning Alex
                         </div>
-                        <div className="text-white text-[2rem] font-light mt-4">
-                            in your last workout you burned <span className='font-semibold'>300kcals</span>, keep going !!
+                        <div className="text-white text-[2rem] w-[400px] font-light mt-4">
+                            in your last workout you burned{" "}
+                            <span className="font-semibold">300kcals</span>, keep going !!
                         </div>
-                        <div className="mt-8">
-                            <Carousel plugins={[plugin.current]} className='w-40 h-40'>
-                                <CarouselContent>
-                                    {Array.from({ length: 3 }).map((_, index) => (
-                                        <CarouselItem key={index}>
-                                            <div className="p-1">
-                                                <Card>
-                                                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                                                        <span className="text-4xl font-semibold">{index + 1}</span>
-                                                    </CardContent>
-                                                </Card>
-                                            </div>
-                                        </CarouselItem>
-                                    ))}
-                                </CarouselContent>
-                                {/* <CarouselPrevious />
-                                <CarouselNext /> */}
-                            </Carousel>
-
-                            {/* Botones de navegación */}
-                            <div className="flex mt-4 space-x-2">
-                                {Array.from({ length: 3 }).map((_, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => handleButtonClick(index)}
-                                        className={`w-12 h-2 rounded-full ${selectedIndex === index ? 'bg-white' : 'bg-gray-400'}`}
-                                    />
-                                ))}
+                        <div className="flex flex-row w-[100%] justify-between mt-8">
+                            <Carousel />
+                            <div className="flex flex-row items-end justify-end pr-14 gap-2">
+                                <button className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                                    <TbBrandGithubFilled className="text-xl" />
+                                </button>
+                                <button className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                                    <MdOutlineQuestionMark className="text-xl" />
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex flex-row justify-between items-center w-full h-full py-4 bg-blue-100 rounded-lg">
-                    {/* Contenido del segundo div */}
+                <div className="flex flex-col w-full h-full rounded-lg">
+                    <ScrollArea className="h-full w-full rounded-lg">
+                        <div className="w-full h-[280px] relative rounded-lg overflow-hidden">
+                            <div className="absolute inset-0">
+                                <Image
+                                    src={gymStatsImage}
+                                    alt="Gym Stats"
+                                    layout="fill"
+                                    objectFit="cover"
+                                    className="rounded-lg"
+                                    style={{ filter: "blur(4px)" }}
+                                />
+                            </div>
+                            {/* Header */}
+                            <div className="absolute z-10 flex flex-row justify-between items-center w-full px-4 pt-3  rounded-lg">
+                                <Button size="sm" className="text-xs font-bold text-white bg-transparent border-[1px] border-white rounded-full h-7 ">
+                                    Your Stats
+                                </Button>
+                                <Button size="sm" className="text-xs font-bold text-white bg-transparent border-white rounded-full bg-white bg-opacity-20 h-7">
+                                    <BsThreeDots className="text-sm" />
+                                </Button>
+                            </div>
+
+                            <div className="absolute z-10 inset-0 flex justify-center items-center"> {/* Clases de flex para centrar */}
+                                <div className="flex flex-row items-center justify-center w-full ">
+                                    <div className="flex flex-col items-end pr-4 pb-14 h-auto space-y-[-3px] w-36">
+                                        <h1 className="text-md font-light text-white">12/12/2021</h1>
+                                        <h1 className="text-md font-light text-white">9.20 pm</h1>
+                                        {/* <h1 className="text-md font-light text-white">pm</h1> */}
+                                    </div>
+                                    {/* Circulo de progreso */}
+                                    <div className="w-40 h-40 border-8 border-white rounded-full flex justify-center items-center">
+                                        <BiStats className="text-[100px] text-white" />
+                                    </div>
+                                    <div className="flex flex-col items-start pl-4 pt-14 h-auto w-36 ">
+                                        <h1 className="text-md font-light text-white">100% of correct technique</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex flex-row w-full gap-4 relative rounded-lg overflow-hidden mt-4 h-[255px]">
+                            <div className="w-[40%] relative">
+                                <Image
+                                    src={gymCurl}
+                                    alt="Gym Legs"
+                                    layout="fill"
+                                    objectFit="cover"
+                                    className="rounded-lg"
+                                />
+                            </div>
+                            <div className="w-[60%] relative">
+                                <Image
+                                    src={gymLegs}
+                                    alt="Gym Abs"
+                                    layout="fill"
+                                    objectFit="cover"
+                                    className="rounded-lg"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex flex-row w-full gap-4 relative rounded-lg overflow-hidden mt-4 h-[255px]">
+                            <div className="w-[64%] relative">
+                                <Image
+                                    src={gymShouders}
+                                    alt="Gym Legs"
+                                    layout="fill"
+                                    objectFit="cover"
+                                    className="rounded-lg"
+                                />
+                            </div>
+                            <div className="w-[36%] relative">
+                                <Image
+                                    src={gymPullUps}
+                                    alt="Gym Abs"
+                                    layout="fill"
+                                    objectFit="cover"
+                                    className="rounded-lg"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex flex-row w-full gap-4 relative rounded-lg overflow-hidden mt-4 h-[255px]">
+                            <div className="w-[100%] relative">
+                                <Image
+                                    src={gymFlex}
+                                    alt="Gym Legs"
+                                    layout="fill"
+                                    objectFit="cover"
+                                    objectPosition="50% 30%"
+                                    className="rounded-lg"
+                                />
+                            </div>
+                        </div>
+                    </ScrollArea>
                 </div>
             </div>
         </div>

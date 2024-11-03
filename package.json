@@ -13,6 +13,7 @@
     "@mediapipe/pose": "^0.5.1675469404",
     "@next/font": "^14.2.15",
     "@radix-ui/react-avatar": "^1.1.1",
+    "@radix-ui/react-scroll-area": "^1.2.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.1",
     "class-variance-authority": "^0.7.0",
