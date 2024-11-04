@@ -181,6 +181,10 @@ const Menu = () => {
                                     />
                                 </div>
                                 <div className="relative w-full h-full">
+                                    <div className="absolute bottom-0 left-0 flex flex-col items-start pl-4 pb-2 h-auto w-40 z-20">
+                                        <h3 className="text-white z-20 font-light mb-[-5px]">Muscle building</h3>
+                                        <h1 className="text-white z-20 font-bold text-[26px]">Bicep Curl</h1>
+                                    </div>
                                     <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
                                         <FaPlay className="text-sm" />
                                     </button>
@@ -197,6 +201,10 @@ const Menu = () => {
                                     />
                                 </div>
                                 <div className="relative w-full h-full">
+                                    <div className="absolute bottom-0 left-0 flex flex-col items-start pl-4 pb-2 h-auto w-36 z-20">
+                                        <h3 className="text-white z-20 font-light mb-[-5px]">Muscle building</h3>
+                                        <h1 className="text-white z-20 font-bold text-[26px]">Squat</h1>
+                                    </div>
                                     <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
                                         <FaPlay className="text-sm" />
                                     </button>
@@ -215,6 +223,10 @@ const Menu = () => {
                                     />
                                 </div>
                                 <div className="relative w-full h-full">
+                                    <div className="absolute bottom-0 left-0 flex flex-col items-start pl-4 pb-2 h-auto w-50 z-20">
+                                        <h3 className="text-white z-20 font-light mb-[-5px]">Muscle building</h3>
+                                        <h1 className="text-white z-20 font-bold text-[26px]">Lateral Raises</h1>
+                                    </div>
                                     <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
                                         <FaPlay className="text-sm" />
                                     </button>
@@ -231,6 +243,10 @@ const Menu = () => {
                                     />
                                 </div>
                                 <div className="relative w-full h-full">
+                                    <div className="absolute bottom-0 left-0 flex flex-col items-start pl-4 pb-2 h-auto w-50 z-20">
+                                        <h3 className="text-white z-20 font-light mb-[-5px]">Muscle building</h3>
+                                        <h1 className="text-white z-20 font-bold text-[26px]">Pull Ups</h1>
+                                    </div>
                                     <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
                                         <FaPlay className="text-sm" />
                                     </button>
@@ -250,6 +266,10 @@ const Menu = () => {
                                     />
                                 </div>
                                 <div className="relative w-full h-full">
+                                    <div className="absolute bottom-0 left-0 flex flex-col items-start pl-4 pb-2 h-auto w-50 z-20">
+                                        <h3 className="text-white z-20 font-light mb-[-5px]">Muscle building</h3>
+                                        <h1 className="text-white z-20 font-bold text-[26px]">Push Ups</h1>
+                                    </div>
                                     <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
                                         <FaPlay className="text-sm" />
                                     </button>
