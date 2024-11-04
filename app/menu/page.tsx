@@ -21,6 +21,7 @@ import { MdOutlineQuestionMark } from "react-icons/md";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { BiStats } from "react-icons/bi";
 import { BsThreeDots } from "react-icons/bs";
+import { FaPlay } from "react-icons/fa";
 
 
 const Menu = () => {
@@ -170,60 +171,95 @@ const Menu = () => {
                         </div>
                         <div className="flex flex-row w-full gap-4 relative rounded-lg overflow-hidden mt-4 h-[255px]">
                             <div className="w-[40%] relative">
-                                <Image
-                                    src={gymCurl}
-                                    alt="Gym Legs"
-                                    layout="fill"
-                                    objectFit="cover"
-                                    className="rounded-lg"
-                                />
+                                <div className="absolute inset-0">
+                                    <Image
+                                        src={gymCurl}
+                                        alt="Gym Legs"
+                                        layout="fill"
+                                        objectFit="cover"
+                                        className="rounded-lg"
+                                    />
+                                </div>
+                                <div className="relative w-full h-full">
+                                    <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
+                                        <FaPlay className="text-sm" />
+                                    </button>
+                                </div>
                             </div>
                             <div className="w-[60%] relative">
-                                <Image
-                                    src={gymLegs}
-                                    alt="Gym Abs"
-                                    layout="fill"
-                                    objectFit="cover"
-                                    className="rounded-lg"
-                                />
+                                <div className="absolute inset-0">
+                                    <Image
+                                        src={gymLegs}
+                                        alt="Gym Abs"
+                                        layout="fill"
+                                        objectFit="cover"
+                                        className="rounded-lg"
+                                    />
+                                </div>
+                                <div className="relative w-full h-full">
+                                    <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
+                                        <FaPlay className="text-sm" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div className="flex flex-row w-full gap-4 relative rounded-lg overflow-hidden mt-4 h-[255px]">
                             <div className="w-[64%] relative">
-                                <Image
-                                    src={gymShouders}
-                                    alt="Gym Legs"
-                                    layout="fill"
-                                    objectFit="cover"
-                                    className="rounded-lg"
-                                />
+                                <div className="absolute inset-0">
+                                    <Image
+                                        src={gymShouders}
+                                        alt="Gym Legs"
+                                        layout="fill"
+                                        objectFit="cover"
+                                        className="rounded-lg"
+                                    />
+                                </div>
+                                <div className="relative w-full h-full">
+                                    <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
+                                        <FaPlay className="text-sm" />
+                                    </button>
+                                </div>
                             </div>
                             <div className="w-[36%] relative">
-                                <Image
-                                    src={gymPullUps}
-                                    alt="Gym Abs"
-                                    layout="fill"
-                                    objectFit="cover"
-                                    className="rounded-lg"
-                                />
+                                <div className="absolute inset-0">
+                                    <Image
+                                        src={gymPullUps}
+                                        alt="Gym Abs"
+                                        layout="fill"
+                                        objectFit="cover"
+                                        className="rounded-lg"
+                                    />
+                                </div>
+                                <div className="relative w-full h-full">
+                                    <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
+                                        <FaPlay className="text-sm" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div className="flex flex-row w-full gap-4 relative rounded-lg overflow-hidden mt-4 h-[255px]">
                             <div className="w-[100%] relative">
-                                <Image
-                                    src={gymFlex}
-                                    alt="Gym Legs"
-                                    layout="fill"
-                                    objectFit="cover"
-                                    objectPosition="50% 30%"
-                                    className="rounded-lg"
-                                />
+                                <div className="absolute inset-0">
+                                    <Image
+                                        src={gymFlex}
+                                        alt="Gym Legs"
+                                        layout="fill"
+                                        objectFit="cover"
+                                        objectPosition="50% 30%"
+                                        className="rounded-lg"
+                                    />
+                                </div>
+                                <div className="relative w-full h-full">
+                                    <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
+                                        <FaPlay className="text-sm" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </ScrollArea>
-                </div>
-            </div>
-        </div>
+                </div >
+            </div >
+        </div >
     );
 };
 
