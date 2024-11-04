@@ -1,12 +1,31 @@
-"use client";
+"use client"
 import Image from "next/image";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import GymImage from "../app/assets/GYM_Landing_Image.jpg";
 import Footer from "@/components/ui/footer";
 import { motion } from "framer-motion";
-import Link from 'next/link'; // Importa Link de Next.js
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useConfiguracion } from "@/app/Context/ConfiguracionContext";
 
 const Home = () => {
+  const router = useRouter(); // Inicializar useRouter
+  const { setConfiguracion } = useConfiguracion(); // Importar y definir setConfiguracion
+
+  const handleStartClick = () => {
+      // Guardar configuración en el contexto
+      setConfiguracion({
+        restricciones: ["AlineacionCodosHombrosX", "AlineacionPiesHombros"],
+        angulosObjetivo: {
+          "12,14,16": [30.0, 100.0], // Ángulo para el brazo izquierdo
+          "11,13,15": [30.0, 100.0], // Ángulo para el brazo derecho
+        },
+        ejercicioNombre: "Elevaciones Laterales",
+      });
+
+      // Redirigir a la página firstAproach
+      router.push("/firstAproach");
+    };
 
   return (
     <main className="relative min-h-screen flex flex-col bg-black">
@@ -41,6 +60,7 @@ const Home = () => {
         >
           <Link href="/firstAproach">
             <Button
+              onClick={handleStartClick}
               size="lg"
               className="text-md font-bold border-2 border-red-600 text-red-600 rounded-lg hover:bg-red-600 hover:text-white focus:ring-2 focus:ring-red-500"
             >
