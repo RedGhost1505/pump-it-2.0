@@ -6,10 +6,10 @@ import { Camera } from '@mediapipe/camera_utils';
 import { motion } from "framer-motion";
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { AlineacionEspalda, AlineacionPiesHombros, AlineacionManosHombros, AlineacionCodosHombrosX } from '@/app/utils/restricciones/restricciones';
+import * as Restricciones from '@/app/utils/restricciones/restricciones';
 import { VerificadorRestricciones } from '../utils/Restriccion';
 import { Movimiento, Landmarks } from "@/app/utils/Movimiento";
-import { useConfiguracion } from "@/app/Context/ConfiguracionContext"; 
+import { useConfiguracion } from "@/app/Context/ConfiguracionContext";
 
 
 const PoseTrackingComponent: React.FC = () => {
@@ -26,16 +26,17 @@ const PoseTrackingComponent: React.FC = () => {
     useEffect(() => {
         if (configuracion) {
             // Crear las restricciones con base en la configuración
-            const restricciones = configuracion.restricciones.map((nombre) => {
-                switch (nombre) {
-                    case "AlineacionCodosHombrosX":
-                        return new AlineacionCodosHombrosX();
-                    case "AlineacionPiesHombros":
-                        return new AlineacionPiesHombros();
-                    default:
+            const restricciones = configuracion.restricciones
+                .map((nombre) => {
+                    const ClaseRestriccion = Restricciones[nombre];
+                    if (ClaseRestriccion) {
+                        return new ClaseRestriccion();
+                    } else {
+                        console.error(`La clase de restricción ${nombre} no está definida.`);
                         return null;
-                }
-            }).filter(Boolean);
+                    }
+                })
+                .filter((restriccion) => restriccion !== null);
 
             setVerificador(new VerificadorRestricciones(restricciones));
             setEjercicio(new Movimiento(configuracion.ejercicioNombre, configuracion.angulosObjetivo, 5));
