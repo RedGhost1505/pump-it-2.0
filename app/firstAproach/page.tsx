@@ -1,16 +1,48 @@
 "use client";
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Pose } from '@mediapipe/pose';
 import { Camera } from '@mediapipe/camera_utils';
 import { motion } from "framer-motion";
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import Interface from '@/components/Interface';
+import * as Restricciones from '@/app/utils/restricciones/restricciones';
+import { VerificadorRestricciones } from '../utils/Restriccion';
+import { Movimiento, Landmarks } from "@/app/utils/Movimiento";
+import { useConfiguracion } from "@/app/Context/ConfiguracionContext";
 
 
 const PoseTrackingComponent: React.FC = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const { configuracion } = useConfiguracion();
+    const [contador, setContador] = useState(0);
+    const [stages, setStages] = useState<{ [key: string]: string | null }>({});
+    const [errores, setErrores] = useState<string[]>([]);
+    const [verificador, setVerificador] = useState<VerificadorRestricciones | null>(null);
+    const [ejercicio, setEjercicio] = useState<Movimiento | null>(null);
+
+    // useEffect para manejar la configuración
+    useEffect(() => {
+        if (configuracion) {
+            // Crear las restricciones con base en la configuración
+            const restricciones = configuracion.restricciones
+                .map((nombre) => {
+                    const ClaseRestriccion = Restricciones[nombre];
+                    if (ClaseRestriccion) {
+                        return new ClaseRestriccion();
+                    } else {
+                        console.error(`La clase de restricción ${nombre} no está definida.`);
+                        return null;
+                    }
+                })
+                .filter((restriccion) => restriccion !== null);
+
+            setVerificador(new VerificadorRestricciones(restricciones));
+            setEjercicio(new Movimiento(configuracion.ejercicioNombre, configuracion.angulosObjetivo, 5));
+        }
+    }, [configuracion]);
+
 
     useEffect(() => {
         if (!videoRef.current || !canvasRef.current) return;
@@ -48,7 +80,7 @@ const PoseTrackingComponent: React.FC = () => {
                 const { x, y } = landmark;
                 canvasCtx.beginPath();
                 canvasCtx.arc(x * canvasRef.current!.width, y * canvasRef.current!.height, 5, 0, 2 * Math.PI);
-                canvasCtx.fillStyle = 'red';
+                canvasCtx.fillStyle = 'green';
                 canvasCtx.fill();
             }
         }
