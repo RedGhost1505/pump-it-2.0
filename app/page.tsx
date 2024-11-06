@@ -13,19 +13,23 @@ const Home = () => {
   const { setConfiguracion } = useConfiguracion(); // Importar y definir setConfiguracion
 
   const handleStartClick = () => {
-      // Guardar configuración en el contexto
-      setConfiguracion({
-        restricciones: ["AlineacionCodosHombrosX", "AlineacionPiesHombros"],
-        angulosObjetivo: {
-          "12,14,16": [30.0, 100.0], // Ángulo para el brazo izquierdo
-          "11,13,15": [30.0, 100.0], // Ángulo para el brazo derecho
-        },
-        ejercicioNombre: "Elevaciones Laterales",
-      });
+    // Guardar configuración en el contexto
+    setConfiguracion({
+      restricciones: ["AlineacionCodosHombrosX", "AlineacionPiesHombros"],
+      angulosObjetivo: {
+        "12,14,16": [20.0, 140.0], // Ángulo para el brazo izquierdo
+        "11,13,15": [20.0, 140.0], // Ángulo para el brazo derecho
+      },
+      ejercicioNombre: "Lagartijas",
+      puntosNecesarios: [
+        [11, 13, 15, 23, 25, 27], // Puntos para el lado derecho
+        [12, 14, 16, 24, 26, 28]  // Puntos para el lado izquierdo
+      ]
+    });
 
-      // Redirigir a la página firstAproach
-      router.push("/firstAproach");
-    };
+    // Redirigir a la página firstAproach
+    router.push("/firstAproach");
+  };
 
   return (
     <main className="relative min-h-screen flex flex-col bg-black">

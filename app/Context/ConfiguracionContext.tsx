@@ -6,6 +6,7 @@ type ConfiguracionEjercicio = {
     restricciones: string[];
     angulosObjetivo: { [key: string]: [number, number] };
     ejercicioNombre: string;
+    puntosNecesarios: number[][]; // Lista de listas 
 };
 
 type ConfiguracionContextType = {
