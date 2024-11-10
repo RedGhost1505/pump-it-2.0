@@ -2,9 +2,37 @@ import React, { useRef, useState, useCallback, useEffect } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import { Card, CardContent } from '@/components/ui/card'
+import Recents1 from '../app/assets/Gym_menu_07.jpg'
+import Recents2 from '../app/assets/Gym_menu_05.jpg'
+import Recents3 from '../app/assets/Gym_menu_03.jpg'
+import Image from 'next/image'
 
 const Carousel = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
+
+    const recentsHardcode = [
+        {
+            id: 1,
+            image: Recents1,
+            title: 'Power your training with AI',
+            description: 'Build the best version of yourself!',
+            button: 'Start'
+        },
+        {
+            id: 2,
+            image: Recents2,
+            title: 'Power your training with AI',
+            description: 'Build the best version of yourself!',
+            button: 'Start'
+        },
+        {
+            id: 3,
+            image: Recents3,
+            title: 'Power your training with AI',
+            description: 'Build the best version of yourself!',
+            button: 'Start'
+        }
+    ]
 
     // Configure autoplay plugin
     const autoplayPlugin = React.useRef(
@@ -61,19 +89,26 @@ const Carousel = () => {
     return (
         <>
             <div>
-                <div ref={emblaRef} className="overflow-hidden w-40">
+                <div ref={emblaRef} className="overflow-hidden w-full"> {/* Aumentar ancho */}
                     <div className="flex">
-                        {Array.from({ length: 3 }).map((_, index) => (
+                        {recentsHardcode.map((_, index) => (
                             <div
                                 key={index}
                                 className="embla__slide p-1"
-                                style={{ flex: "0 0 100%" }}
+                                style={{ flex: "0 0 100%" }} // Asegurarse de que cada slide ocupe el 100% del ancho
                             >
-                                <Card>
-                                    <CardContent className="flex aspect-square items-center justify-center p-6">
-                                        <span className="text-4xl font-semibold">
-                                            {index + 1}
-                                        </span>
+                                <Card className="border-none p-0 rounded-lg bg-transparent">
+                                    <CardContent className="relative w-full h-[150px]"> {/* Ajustar altura del contenedor */}
+                                        <Image
+                                            src={_.image}
+                                            alt="Gym"
+                                            layout="fill"
+                                            objectFit="cover"
+                                            className="rounded-lg z-0"
+                                        />
+                                        <button className="absolute left-1 top-2 w-auto z-10 bg-transparent border-[1px] border-white rounded-full">
+                                            <h1 className='font-light text-[12px] text-white px-2 py-[2px]'> Your recents </h1>
+                                        </button>
                                     </CardContent>
                                 </Card>
                             </div>
@@ -87,7 +122,7 @@ const Carousel = () => {
                         <button
                             key={index}
                             onClick={() => handleButtonClick(index)}
-                            className={`w-12 h-2 rounded-full transition-colors duration-300 ${selectedIndex === index
+                            className={`w-14 h-2 rounded-full transition-colors duration-300 ${selectedIndex === index
                                 ? "bg-white"
                                 : "bg-gray-400 hover:bg-gray-300"
                                 }`}
