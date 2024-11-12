@@ -5,3 +5,4 @@ export { AlineacionCodosHombrosX } from './AlineacionCodosHombrosX';
 export { CuerpoRecto } from './CuerpoRecto'
 export { AlineacionHombrosConMunecas } from './AlineacionHombrosConMunecas'
 export { SeparacionPies } from './SeparacionPies'
+export { AlineacionRodillasPies } from './AlineacionRodillasPies'
