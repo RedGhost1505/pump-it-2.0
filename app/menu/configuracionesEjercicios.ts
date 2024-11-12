@@ -21,7 +21,7 @@ export const configuraciones: { [key: string]: ConfiguracionEjercicio } = {
         ]
     },
     Sentadilla: {
-        restricciones: ["AlineacionCodosHombrosX", "AlineacionPiesHombros"],
+        restricciones: ["AlineacionRodillasPies"],
         angulosObjetivo: {
             "24,26,28": [70.0, 140.0],
             "23,25,27": [70.0, 140.0]
