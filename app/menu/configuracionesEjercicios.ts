@@ -47,7 +47,7 @@ export const configuraciones: { [key: string]: ConfiguracionEjercicio } = {
         ]
     },
     ElevacionesLaterales: {
-        restricciones: ["AlineacionCodosHombrosX", "AlineacionPiesHombros"],
+        restricciones: ["CuerpoRecto", "AlineacionMunecasCodos"],
         angulosObjetivo: {
             "24,12,14": [70.0, 160.0],
             "23,11,13": [70.0, 160.0]
