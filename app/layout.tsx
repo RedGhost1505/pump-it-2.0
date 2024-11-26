@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Montserrat } from '@next/font/google';
 import localFont from "next/font/local";
 import "./globals.css";
+import { ConfiguracionProvider } from "@/app/Context/ConfiguracionContext";
+
+
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 
@@ -31,7 +34,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased ${montserrat.className}`}
       >
-        {children}
+        <ConfiguracionProvider>       
+           {children}
+        </ConfiguracionProvider>
       </body>
     </html>
   );

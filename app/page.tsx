@@ -6,7 +6,10 @@ import Footer from "@/components/ui/footer";
 import { motion } from "framer-motion";
 import Link from 'next/link'; // Importa Link de Next.js
 
+
+
 const Home = () => {
+
 
   return (
     <main className="relative min-h-screen flex flex-col bg-black">

@@ -23,10 +23,16 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { BiStats } from "react-icons/bi";
 import { BsThreeDots } from "react-icons/bs";
 import { FaPlay } from "react-icons/fa";
+import { configuraciones } from './configuracionesEjercicios';
+import { useConfiguracion } from "@/app/Context/ConfiguracionContext";
+import { useRouter } from "next/navigation";
 
 
 const Menu = () => {
     const [time, setTime] = useState<Date>(new Date());
+    const router = useRouter(); // Inicializar useRouter
+    const { setConfiguracion } = useConfiguracion(); // Importar y definir setConfiguracion
+
 
     // Update time every second
     useEffect(() => {
@@ -48,6 +54,19 @@ const Menu = () => {
     };
 
     const { formattedHours, formattedMinutes, period } = formatTime(time);
+
+    const handleStartClick = (ejercicioNombre: string) => {
+        const configuracion = configuraciones[ejercicioNombre];
+
+        if (configuracion) {
+            // Guardar configuración en el contexto
+            setConfiguracion(configuracion);
+            // Redirigir a la página específica del ejercicio
+            router.push("/firstAproach"); // Puedes cambiar la ruta según la página destino
+        } else {
+            console.error(`Configuración para el ejercicio "${ejercicioNombre}" no encontrada.`);
+        }
+    };
 
     return (
         <div className="flex flex-col z-0 w-full min-h-[100vh] bg-black">
@@ -190,7 +209,8 @@ const Menu = () => {
                                         <h3 className="text-white z-20 font-light mb-[-5px]">Muscle building</h3>
                                         <h1 className="text-white z-20 font-bold text-[26px]">Bicep Curl</h1>
                                     </div>
-                                    <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
+                                    <button onClick={() => handleStartClick("CurlDeBarra")} 
+                                            className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
                                         <FaPlay className="text-sm" />
                                     </button>
                                 </div>
@@ -210,9 +230,10 @@ const Menu = () => {
                                         <h3 className="text-white z-20 font-light mb-[-5px]">Muscle building</h3>
                                         <h1 className="text-white z-20 font-bold text-[26px]">Squat</h1>
                                     </div>
-                                    <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
-                                        <FaPlay className="text-sm" />
-                                    </button>
+                                        <button onClick={() => handleStartClick("Sentadilla")} 
+                                                className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
+                                            <FaPlay className="text-sm" />
+                                        </button>
                                 </div>
                             </div>
                         </div>
@@ -232,9 +253,10 @@ const Menu = () => {
                                         <h3 className="text-white z-20 font-light mb-[-5px]">Muscle building</h3>
                                         <h1 className="text-white z-20 font-bold text-[26px]">Lateral Raises</h1>
                                     </div>
-                                    <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
-                                        <FaPlay className="text-sm" />
-                                    </button>
+                                        <button onClick={() => handleStartClick("ElevacionesLaterales")} 
+                                                className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
+                                            <FaPlay className="text-sm" />
+                                        </button>
                                 </div>
                             </div>
                             <div className="w-[36%] relative">
@@ -252,9 +274,10 @@ const Menu = () => {
                                         <h3 className="text-white z-20 font-light mb-[-5px]">Muscle building</h3>
                                         <h1 className="text-white z-20 font-bold text-[26px]">Pull Ups</h1>
                                     </div>
-                                    <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
-                                        <FaPlay className="text-sm" />
-                                    </button>
+                                        <button onClick={() => handleStartClick("Pullups")} 
+                                                className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
+                                            <FaPlay className="text-sm" />
+                                        </button>
                                 </div>
                             </div>
                         </div>
@@ -275,9 +298,10 @@ const Menu = () => {
                                         <h3 className="text-white z-20 font-light mb-[-5px]">Muscle building</h3>
                                         <h1 className="text-white z-20 font-bold text-[26px]">Push Ups</h1>
                                     </div>
-                                    <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
-                                        <FaPlay className="text-sm" />
-                                    </button>
+                                        <button onClick={() => handleStartClick("Lagartijas")} 
+                                                className="w-8 h-8 bg-white rounded-full flex items-center justify-center absolute bottom-2 right-4 z-20">
+                                            <FaPlay className="text-sm" />
+                                        </button>
                                 </div>
                             </div>
                         </div>
