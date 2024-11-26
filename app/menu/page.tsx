@@ -16,6 +16,7 @@ import gymCurl from "../assets/Gym_Menu_06.jpg";
 import gymFlex from "../assets/Gym_Menu_07.jpg";
 import gymStatsImage from "../assets/Gym_Menu_04.jpg";
 import Carousel from "@/components/Carousel";
+import { IoSettingsSharp } from "react-icons/io5";
 import { TbBrandGithubFilled } from "react-icons/tb";
 import { MdOutlineQuestionMark } from "react-icons/md";
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -87,7 +88,11 @@ const Menu = () => {
             </div>
 
             {/* Search section */}
-            <div className="flex justify-center mt-10">
+            <div className="flex justify-center mt-10 ">
+                {/* <button className="w-auto h-10 bg-white rounded-full flex items-center justify-center space-x-2 px-4">
+                    <IoSettingsSharp className="text-xl text-gray-800" />
+                    <span className="font-semibold text-gray-800">Settings</span>
+                </button> */}
                 <div className="relative w-[300px]">
                     <Input placeholder="Search..." className="pr-10 rounded-3xl" />
                     <IoMdSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
