@@ -7,7 +7,7 @@ export class AlineacionPiesHombros extends RestriccionPostura {
 
         // Verificar alineación de los pies con los hombros
         // 27 - pie izquierdo, 28 - pie derecho, 11 - hombro izquierdo, 12 - hombro derecho
-        const rangoPermitido = 0.05; // 5% de tolerancia
+        const rangoPermitido = 0.10; // 5% de tolerancia
 
         const posicionHombroIzquierdo = puntos['11'].x;
         const posicionHombroDerecho = puntos['12'].x;

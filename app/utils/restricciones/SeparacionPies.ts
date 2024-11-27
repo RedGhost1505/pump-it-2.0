@@ -6,8 +6,8 @@ export class SeparacionPies extends RestriccionPostura {
         const puntosMal: string[] = [];
 
         // 27 - tobillo izquierdo, 28 - tobillo derecho
-        const distanciaMinima = 0.30; // Distancia mínima permitida entre los tobillos (en unidades normalizadas)
-        const distanciaMaxima = 0.50; // Distancia máxima permitida entre los tobillos
+        const distanciaMinima = 0.20; // Distancia mínima permitida entre los tobillos (en unidades normalizadas)
+        const distanciaMaxima = 0.40; // Distancia máxima permitida entre los tobillos
 
         const distanciaTobillos = this.medirDistancia2D(
             { x: puntos['27'].x, y: puntos['27'].y },

@@ -9,7 +9,7 @@ type ConfiguracionEjercicio = {
 
 export const configuraciones: { [key: string]: ConfiguracionEjercicio } = {
     Lagartijas: {
-        restricciones: ["CuerpoRecto","AlineacionHombrosConMunecas","SeparacionPies"],
+        restricciones: ["AlineacionHombrosConMunecas","SeparacionPies"],
         angulosObjetivo: {
             "12,14,16": [20.0, 140.0],
             "11,13,15": [20.0, 140.0]
@@ -60,7 +60,7 @@ export const configuraciones: { [key: string]: ConfiguracionEjercicio } = {
         ]
     },
     Pullups: {
-        restricciones: ["AlineacionCodosHombrosX", "CuerpoRecto", "AlineacionHombrosConMunecas"],
+        restricciones: ["AlineacionCodosHombrosX",  "AlineacionHombrosConMunecas"],
         angulosObjetivo: {
             "12,14,16": [30.0, 160.0],
             "11,13,15": [30.0, 160.0]
