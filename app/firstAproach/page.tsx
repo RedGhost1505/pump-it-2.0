@@ -11,6 +11,17 @@ import { VerificadorRestricciones } from '../utils/Restriccion';
 import { Movimiento, Landmarks } from "@/app/utils/Movimiento";
 import { useConfiguracion } from "@/app/Context/ConfiguracionContext";
 
+
+type Landmark = {
+    x: number;
+    y: number;
+    z: number;
+};
+
+type Results = {
+    poseLandmarks?: Landmark[];
+};
+
 const PoseTrackingComponent: React.FC = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -18,7 +29,7 @@ const PoseTrackingComponent: React.FC = () => {
     const [contador, setContador] = useState(0); // Estado para contar los ejercicios
     const [verificador, setVerificador] = useState<VerificadorRestricciones | null>(null);
     const [ejercicio, setEjercicio] = useState<Movimiento | null>(null);
-    const [errores, setErrores] = useState<string[]>([]); // Estado para almacenar los puntos que no cumplen restricciones
+    // const [errores, setErrores] = useState<string[]>([]); // Estado para almacenar los puntos que no cumplen restricciones
 
     // useEffect para manejar la configuración
     useEffect(() => {
@@ -69,7 +80,7 @@ const PoseTrackingComponent: React.FC = () => {
         camera.start();
 
         // Callback para procesar los resultados de MediaPipe
-        function onResults(results: any) {
+        function onResults(results: Results) {
             const canvasCtx = canvasRef.current!.getContext('2d');
             if (canvasCtx) {
                 canvasCtx.clearRect(0, 0, canvasRef.current!.width, canvasRef.current!.height);
@@ -86,7 +97,7 @@ const PoseTrackingComponent: React.FC = () => {
 
                     // Verificar restricciones sin mostrarlas
                     const resultadoRestricciones = verificador.verificarPostura(poseData);
-                    setErrores(resultadoRestricciones.puntosMal);
+                    // setErrores(resultadoRestricciones.puntosMal);
 
                     if (resultadoRestricciones.puntosMal.length === 0) {
                         // Si no hay restricciones incumplidas, verificar si se completó el ejercicio
