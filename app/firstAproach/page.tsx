@@ -11,16 +11,14 @@ import { VerificadorRestricciones } from '../utils/Restriccion';
 import { Movimiento, Landmarks } from "@/app/utils/Movimiento";
 import { useConfiguracion } from "@/app/Context/ConfiguracionContext";
 
-
 const PoseTrackingComponent: React.FC = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const { configuracion } = useConfiguracion();
-    const [contador, setContador] = useState(0);
-    const [stages, setStages] = useState<{ [key: string]: string | null }>({});
-    const [errores, setErrores] = useState<string[]>([]);
+    const [contador, setContador] = useState(0); // Estado para contar los ejercicios
     const [verificador, setVerificador] = useState<VerificadorRestricciones | null>(null);
     const [ejercicio, setEjercicio] = useState<Movimiento | null>(null);
+    const [errores, setErrores] = useState<string[]>([]); // Estado para almacenar los puntos que no cumplen restricciones
 
     // useEffect para manejar la configuración
     useEffect(() => {
@@ -43,11 +41,10 @@ const PoseTrackingComponent: React.FC = () => {
         }
     }, [configuracion]);
 
-
+    // useEffect para inicializar MediaPipe Pose y la cámara
     useEffect(() => {
-        if (!videoRef.current || !canvasRef.current) return;
+        if (!videoRef.current || !canvasRef.current || !verificador || !ejercicio) return;
 
-        // Configuración de MediaPipe Pose
         const pose = new Pose({
             locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
         });
@@ -62,6 +59,15 @@ const PoseTrackingComponent: React.FC = () => {
 
         pose.onResults(onResults);
 
+        const camera = new Camera(videoRef.current!, {
+            onFrame: async () => {
+                await pose.send({ image: videoRef.current! });
+            },
+            width: 1280,
+            height: 720,
+        });
+        camera.start();
+
         // Callback para procesar los resultados de MediaPipe
         function onResults(results: any) {
             const canvasCtx = canvasRef.current!.getContext('2d');
@@ -69,37 +75,49 @@ const PoseTrackingComponent: React.FC = () => {
                 canvasCtx.clearRect(0, 0, canvasRef.current!.width, canvasRef.current!.height);
 
                 if (results.poseLandmarks) {
-                    drawPose(results.poseLandmarks, canvasCtx);
+                    const landmarks = results.poseLandmarks.map((landmark: { x: number; y: number; z: number }) => ({
+                        x: landmark.x,
+                        y: landmark.y,
+                        z: landmark.z,
+                    }));
+                    const poseData: { [key: string]: { x: number; y: number; z: number } } = Object.fromEntries(
+                        landmarks.map((landmark, index) => [index.toString(), landmark])
+                    );
+
+                    // Verificar restricciones sin mostrarlas
+                    const resultadoRestricciones = verificador.verificarPostura(poseData);
+                    setErrores(resultadoRestricciones.puntosMal);
+
+                    if (resultadoRestricciones.puntosMal.length === 0) {
+                        // Si no hay restricciones incumplidas, verificar si se completó el ejercicio
+                        const ejercicioCompletado = ejercicio.verificarEjercicio(landmarks as Landmarks);
+                        if (ejercicioCompletado) {
+                            setContador(ejercicio.contador);
+                        }
+                    }
+
+                    // Dibujar pose en el canvas
+                    drawPose(landmarks, canvasCtx, resultadoRestricciones.puntosMal);
                 }
             }
         }
 
         // Dibuja los landmarks de la pose en el canvas
-        function drawPose(landmarks: any[], canvasCtx: CanvasRenderingContext2D) {
-            for (const landmark of landmarks) {
-                const { x, y } = landmark;
+        function drawPose(landmarks: { x: number; y: number; z: number }[], canvasCtx: CanvasRenderingContext2D, puntosMal: string[]) {
+            for (let i = 0; i < landmarks.length; i++) {
+                const { x, y } = landmarks[i];
                 canvasCtx.beginPath();
                 canvasCtx.arc(x * canvasRef.current!.width, y * canvasRef.current!.height, 5, 0, 2 * Math.PI);
-                canvasCtx.fillStyle = 'green';
+                canvasCtx.fillStyle = puntosMal.includes(i.toString()) ? 'red' : 'green';
                 canvasCtx.fill();
             }
         }
-
-        // Configuración de la cámara
-        const camera = new Camera(videoRef.current!, {
-            onFrame: async () => {
-                await pose.send({ image: videoRef.current! });
-            },
-            width: 1280, // Aumenta el ancho
-            height: 720, // Aumenta la altura
-        });
-        camera.start();
 
         return () => {
             camera.stop();
             pose.close();
         };
-    }, []);
+    }, [verificador, ejercicio]);
 
     return (
         <div className="relative w-screen h-screen">
@@ -143,8 +161,8 @@ const PoseTrackingComponent: React.FC = () => {
                 </motion.div>
             </div>
 
-            <Interface />
-
+            {/* Pasar el contador al componente Interface */}
+            <Interface contador={contador} />
         </div>
     );
 };

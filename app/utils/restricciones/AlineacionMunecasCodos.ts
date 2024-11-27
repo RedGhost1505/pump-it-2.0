@@ -6,7 +6,7 @@ export class AlineacionMunecasCodos extends RestriccionPostura {
         const puntosMal: string[] = [];
 
         // 13 - codo izquierdo, 14 - codo derecho, 15 - muñeca izquierda, 16 - muñeca derecha
-        const rangoPermitido = 0.10; // 10% de tolerancia para la posición Y
+        const rangoPermitido = 0.300; // 10% de tolerancia para la posición Y
 
         const posicionCodoIzquierdoY = puntos['13'].y;
         const posicionCodoDerechoY = puntos['14'].y;
