@@ -11,8 +11,8 @@ export const configuraciones: { [key: string]: ConfiguracionEjercicio } = {
     Lagartijas: {
         restricciones: ["AlineacionHombrosConMunecas","SeparacionPies"],
         angulosObjetivo: {
-            "12,14,16": [20.0, 140.0],
-            "11,13,15": [20.0, 140.0]
+            "12,14,16": [140, 20],
+            "11,13,15": [140, 20]
         },
         ejercicioNombre: "Lagartijas",
         puntosNecesarios: [
@@ -23,8 +23,8 @@ export const configuraciones: { [key: string]: ConfiguracionEjercicio } = {
     Sentadilla: {
         restricciones: ["AlineacionRodillasPies"],
         angulosObjetivo: {
-            "24,26,28": [70.0, 140.0],
-            "23,25,27": [70.0, 140.0]
+            "24,26,28": [150, 45.0],
+            "23,25,27": [150, 45.0]
         },
         ejercicioNombre: "Sentadilla",
         puntosNecesarios: [
@@ -36,8 +36,8 @@ export const configuraciones: { [key: string]: ConfiguracionEjercicio } = {
     CurlDeBarra: {
         restricciones: ["AlineacionCodosHombrosX", "AlineacionPiesHombros"],
         angulosObjetivo: {
-            "12,14,16": [30.0, 150.0],
-            "11,13,15": [30.0, 150.0]
+            "12,14,16": [150.0, 30.0],
+            "11,13,15": [150.0, 30.0]
         },
         ejercicioNombre: "Curl de barra",
         puntosNecesarios: [
@@ -62,8 +62,8 @@ export const configuraciones: { [key: string]: ConfiguracionEjercicio } = {
     Pullups: {
         restricciones: ["AlineacionCodosHombrosX",  "AlineacionHombrosConMunecas"],
         angulosObjetivo: {
-            "12,14,16": [30.0, 160.0],
-            "11,13,15": [30.0, 160.0]
+            "12,14,16": [160.0, 30.0],
+            "11,13,15": [160.0, 30.0]
         },
         ejercicioNombre: "Pullups",
         puntosNecesarios: [
