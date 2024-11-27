@@ -47,10 +47,10 @@ export const configuraciones: { [key: string]: ConfiguracionEjercicio } = {
         ]
     },
     ElevacionesLaterales: {
-        restricciones: ["CuerpoRecto", "AlineacionMunecasCodos"],
+        restricciones: ["AlineacionMunecasCodos"],
         angulosObjetivo: {
-            "24,12,14": [70.0, 160.0],
-            "23,11,13": [70.0, 160.0]
+            "24,12,14": [20.0, 80.0],
+            "23,11,13": [20.0, 80.0]
         },
         ejercicioNombre: "Elevaciones laterales",
         puntosNecesarios: [
