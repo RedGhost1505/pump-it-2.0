@@ -1,14 +1,41 @@
 "use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button"
 import GymImage from "../app/assets/GYM_Landing_Image.jpg";
 import Footer from "@/components/ui/footer";
 import { motion } from "framer-motion";
 import Link from 'next/link'; // Importa Link de Next.js
+import MobileHome from "../components/MobileHome";
 
 
 
 const Home = () => {
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+
+    // Establece el valor inicial
+    setIsMobile(mediaQuery.matches);
+
+    // Listener para cambiar el estado cuando la media query cambia
+    const handleMediaQueryChange = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    // Limpieza del listener al desmontar el componente
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+    };
+  }, []);
+
+  if (isMobile) {
+    return <MobileHome />;
+  }
 
 
   return (
