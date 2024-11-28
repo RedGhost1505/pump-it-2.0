@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import Link from 'next/link'; // Importa Link de Next.js
 import MobileHome from "../components/MobileHome";
 
-
+//New commit
 
 const Home = () => {
 
