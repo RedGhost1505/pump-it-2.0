@@ -6,7 +6,7 @@ export class AlineacionManosEnY extends RestriccionPostura {
         const puntosMal: string[] = [];
 
         // 15 - muñeca izquierda, 16 - muñeca derecha
-        const rangoPermitido = 0.8; // 0.05% de tolerancia
+        const rangoPermitido = 0.08; // 0.05% de tolerancia
 
         const posicionMunecaIzquierdaY = puntos['15'].y;
         const posicionMunecaDerechaY = puntos['16'].y;

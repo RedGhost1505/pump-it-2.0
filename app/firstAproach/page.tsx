@@ -10,6 +10,7 @@ import * as Restricciones from '@/app/utils/restricciones/restricciones';
 import { VerificadorRestricciones } from '../utils/Restriccion';
 import { Movimiento, Landmarks } from "@/app/utils/Movimiento";
 import { useConfiguracion } from "@/app/Context/ConfiguracionContext";
+import { RestriccionPostura } from "@/app/utils/Restriccion"
 
 
 type Landmark = {
@@ -21,6 +22,8 @@ type Landmark = {
 type Results = {
     poseLandmarks?: Landmark[];
 };
+
+const restriccionesTyped = Restricciones as { [key: string]: new () => RestriccionPostura };
 
 const PoseTrackingComponent: React.FC = () => {
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -37,7 +40,7 @@ const PoseTrackingComponent: React.FC = () => {
             // Crear las restricciones con base en la configuración
             const restricciones = configuracion.restricciones
                 .map((nombre) => {
-                    const ClaseRestriccion = Restricciones[nombre];
+                    const ClaseRestriccion = restriccionesTyped[nombre];
                     if (ClaseRestriccion) {
                         return new ClaseRestriccion();
                     } else {
@@ -81,6 +84,13 @@ const PoseTrackingComponent: React.FC = () => {
 
         // Callback para procesar los resultados de MediaPipe
         function onResults(results: Results) {
+
+
+            if (!verificador || !ejercicio) {
+                console.error("El verificador o el ejercicio no están disponibles");
+                return;
+            }
+            
             const canvasCtx = canvasRef.current!.getContext('2d');
             if (canvasCtx) {
                 canvasCtx.clearRect(0, 0, canvasRef.current!.width, canvasRef.current!.height);

@@ -6,7 +6,7 @@ export class AlineacionCodosHombrosX extends RestriccionPostura {
         const puntosMal: string[] = [];
 
         // 13 - codo izquierdo, 14 - codo derecho, 11 - hombro izquierdo, 12 - hombro derecho
-        const rangoPermitido = 0.20; // 3% de tolerancia
+        const rangoPermitido = 0.05; // 3% de tolerancia
 
         const posicionHombroIzquierdoX = puntos['11'].x;
         const posicionHombroDerechoX = puntos['12'].x;
