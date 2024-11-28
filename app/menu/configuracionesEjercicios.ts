@@ -23,8 +23,8 @@ export const configuraciones: { [key: string]: ConfiguracionEjercicio } = {
     Sentadilla: {
         restricciones: ["AlineacionRodillasPies"],
         angulosObjetivo: {
-            "24,26,28": [150, 45.0],
-            "23,25,27": [150, 45.0]
+            "24,26,28": [150, 100.0],
+            "23,25,27": [150, 100.0]
         },
         ejercicioNombre: "Sentadilla",
         puntosNecesarios: [
@@ -34,10 +34,10 @@ export const configuraciones: { [key: string]: ConfiguracionEjercicio } = {
         ]
     },
     CurlDeBarra: {
-        restricciones: ["AlineacionCodosHombrosX", "AlineacionPiesHombros"],
+        restricciones: ["AlineacionCodosHombrosX", "AlineacionManosEnY"],
         angulosObjetivo: {
-            "12,14,16": [150.0, 30.0],
-            "11,13,15": [150.0, 30.0]
+            "12,14,16": [150.0, 50.0],
+            "11,13,15": [150.0, 50.0]
         },
         ejercicioNombre: "Curl de barra",
         puntosNecesarios: [

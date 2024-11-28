@@ -6,7 +6,7 @@ export class AlineacionRodillasPies extends RestriccionPostura {
         const puntosMal: string[] = [];
 
         // 25 - rodilla izquierda, 26 - rodilla derecha, 27 - tobillo izquierdo, 28 - tobillo derecho
-        const rangoPermitido = 0.10; // 10% de tolerancia
+        const rangoPermitido = 0.15; // 10% de tolerancia
 
         const posicionRodillaIzquierdaX = puntos['25'].x;
         const posicionRodillaDerechaX = puntos['26'].x;
