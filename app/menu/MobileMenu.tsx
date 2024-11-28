@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import recentWorkoutImage1 from "../public/assets/Gym_menu_01.jpg";
-import recentWorkoutImage2 from "../public/assets/Gym_menu_02.jpg";
-import recentWorkoutImage3 from "../public/assets/Gym_menu_03.jpg";
+import recentWorkoutImage1 from "../public/assets/Gym_Menu_01.jpg";
+import recentWorkoutImage2 from "../public/assets/Gym_Menu_02.jpg";
+import recentWorkoutImage3 from "../public/assets/Gym_Menu_03.jpg";
 import CarouselMobile from "@/components/CarouselMobile";
 import {
     Avatar,
