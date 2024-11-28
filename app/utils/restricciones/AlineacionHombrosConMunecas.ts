@@ -6,7 +6,7 @@ export class AlineacionHombrosConMunecas extends RestriccionPostura {
         const puntosMal: string[] = [];
 
         // 11 - hombro izquierdo, 12 - hombro derecho, 15 - muñeca izquierda, 16 - muñeca derecha
-        const rangoPermitido = 0.10; // 10% de tolerancia
+        const rangoPermitido = 0.20; // 10% de tolerancia
 
         const posicionHombroIzquierdoX = puntos['11'].x;
         const posicionHombroDerechoX = puntos['12'].x;

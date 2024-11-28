@@ -9,10 +9,10 @@ type ConfiguracionEjercicio = {
 
 export const configuraciones: { [key: string]: ConfiguracionEjercicio } = {
     Lagartijas: {
-        restricciones: ["AlineacionHombrosConMunecas","SeparacionPies"],
+        restricciones: ["AlineacionHombrosConMunecas", "CuerpoRecto"],
         angulosObjetivo: {
-            "12,14,16": [140, 20],
-            "11,13,15": [140, 20]
+            "12,14,16": [140, 100],
+            "11,13,15": [140, 100]
         },
         ejercicioNombre: "Lagartijas",
         puntosNecesarios: [
@@ -23,8 +23,8 @@ export const configuraciones: { [key: string]: ConfiguracionEjercicio } = {
     Sentadilla: {
         restricciones: ["AlineacionRodillasPies"],
         angulosObjetivo: {
-            "24,26,28": [150, 100.0],
-            "23,25,27": [150, 100.0]
+            "24,26,28": [140, 105.0],
+            "23,25,27": [140, 105.0]
         },
         ejercicioNombre: "Sentadilla",
         puntosNecesarios: [
