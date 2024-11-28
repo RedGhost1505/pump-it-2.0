@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -16,7 +16,6 @@ import gymCurl from "../assets/Gym_Menu_06.jpg";
 import gymFlex from "../assets/Gym_Menu_07.jpg";
 import gymStatsImage from "../assets/Gym_Menu_04.jpg";
 import Carousel from "@/components/Carousel";
-import { IoSettingsSharp } from "react-icons/io5";
 import { TbBrandGithubFilled } from "react-icons/tb";
 import { MdOutlineQuestionMark } from "react-icons/md";
 import { ScrollArea } from "@/components/ui/scroll-area"
