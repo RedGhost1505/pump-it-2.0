@@ -43,7 +43,8 @@ const MobileHome = () => {
                     <h1 className="text-5xl font-bold text-white">
                         Build the best version of <span className="font-light">yourself!</span>
                     </h1>
-                    <h3 className="text-md font-light text-white mt-6">Whether you're just starting or leveling up, Pump-It guides your transformation every step of the way. Start today!</h3>
+                    <h3 className="text-md font-light text-white mt-6">Whether you&apos;re just starting or leveling up, Pump-It guides your transformation every step of the way. Start today!
+                    </h3>
 
                 </motion.div>
             </div>

@@ -1,12 +1,10 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import recentWorkoutImage1 from "../assets/Gym_menu_01.jpg";
 import recentWorkoutImage2 from "../assets/Gym_menu_02.jpg";
 import recentWorkoutImage3 from "../assets/Gym_menu_03.jpg";
 import CarouselMobile from "@/components/CarouselMobile";
-import Link from "next/link";
 import {
     Avatar,
     AvatarFallback,
