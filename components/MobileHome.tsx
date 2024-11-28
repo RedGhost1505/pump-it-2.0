@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import GymImage from "../app/assets/Gym_Landing_Mobile.jpg";
+import GymImage from "../app/public/assets/Gym_Landing_Mobile.jpg";
 import { motion } from "framer-motion";
 import Link from "next/link";
 

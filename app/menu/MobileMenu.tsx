@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react";
-import gymMenuImage from "../assets/Gym_Menu_Mobile.jpg";
+import gymMenuImage from "../public/assets/Gym_Menu_Mobile.jpg";
 
 const MobileMenu = () => {
 

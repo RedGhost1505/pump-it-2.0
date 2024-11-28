@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Card, CardContent } from '@/components/ui/card';
-import Recents1 from '../app/assets/Gym_menu_07.jpg';
-import Recents2 from '../app/assets/Gym_menu_05.jpg';
-import Recents3 from '../app/assets/Gym_menu_03.jpg';
+import Recents1 from '../app/public/assets/Gym_menu_07.jpg';
+import Recents2 from '../app/public/assets/Gym_menu_05.jpg';
+import Recents3 from '../app/public/assets/Gym_menu_03.jpg';
 import Image from 'next/image';
 
 const CarouselMobile = () => {

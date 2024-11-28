@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button"
-import GymImage from "../app/assets/GYM_Landing_Image.jpg";
+import GymImage from "../app/public/assets/GYM_Landing_Image.jpg";
 import Footer from "@/components/ui/footer";
 import { motion } from "framer-motion";
 import Link from 'next/link'; // Importa Link de Next.js
