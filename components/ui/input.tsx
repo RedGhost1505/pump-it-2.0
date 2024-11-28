@@ -14,7 +14,7 @@ const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLI
         {...props}
       />
     )
-  }
+  } // Añadir propiedades de estilo a los inputs
 )
 Input.displayName = "Input"
 
