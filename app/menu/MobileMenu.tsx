@@ -1,9 +1,6 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import recentWorkoutImage1 from "../public/assets/Gym_Menu_01.jpg";
-import recentWorkoutImage2 from "../public/assets/Gym_Menu_02.jpg";
-import recentWorkoutImage3 from "../public/assets/Gym_Menu_03.jpg";
 import CarouselMobile from "@/components/CarouselMobile";
 import {
     Avatar,
@@ -12,40 +9,40 @@ import {
 } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react";
-import gymMenuImage from "../public/assets/Gym_Menu_Mobile.jpg";
 
-//New commit
+// NOTE: The incorrect image imports have been removed.
 
 const MobileMenu = () => {
 
+    // NOTE: The 'image' properties now use direct string paths to the public folder.
     const recentWorkouts = [
         {
-            image: recentWorkoutImage1,
+            image: "/assets/Gym_Menu_01.jpg",
             title: "Your last workout",
             description: "In your last workout you burned 300 calories",
         },
         {
-            image: recentWorkoutImage2,
+            image: "/assets/Gym_Menu_02.jpg",
             title: "Cardio Blast",
             description: "You ran 5 kilometers in 30 minutes",
         },
         {
-            image: recentWorkoutImage3,
+            image: "/assets/Gym_Menu_03.jpg",
             title: "Strength Training",
             description: "You lifted a total of 5,000 kg",
         },
         {
-            image: recentWorkoutImage1,
+            image: "/assets/Gym_Menu_01.jpg",
             title: "Your last workout",
             description: "In your last workout you burned 300 calories",
         },
         {
-            image: recentWorkoutImage2,
+            image: "/assets/Gym_Menu_02.jpg",
             title: "Cardio Blast",
             description: "You ran 5 kilometers in 30 minutes",
         },
         {
-            image: recentWorkoutImage3,
+            image: "/assets/Gym_Menu_03.jpg",
             title: "Strength Training",
             description: "You lifted a total of 5,000 kg",
         }
@@ -106,7 +103,8 @@ const MobileMenu = () => {
                     className="relative w-full h-full" // Asegura que el contenedor tenga un tamaño definido
                 >
                     <Image
-                        src={gymMenuImage}
+                        // NOTE: Using the direct string path here as well.
+                        src={"/assets/Gym_Menu_Mobile.jpg"}
                         alt="Gym"
                         fill
                         className="object-cover object-right opacity-70 rounded-xl"
