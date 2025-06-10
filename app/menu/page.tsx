@@ -8,7 +8,7 @@ import { IoMdCloudyNight } from "react-icons/io";
 import { FaCloudSun } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
 import Image from "next/image";
-import gymMenuImage from "../public/assets/Gym_Menu_01.jpg";
+import gymMenuImage from "../src/assets/Gym_menu_01.jpg";
 import gymLegs from "../public/assets/Gym_Menu_05.jpg";
 import gymShouders from "../public/assets/Gym_Menu_03.jpg";
 import gymPullUps from "../public/assets/Gym_Menu_08.jpg";
